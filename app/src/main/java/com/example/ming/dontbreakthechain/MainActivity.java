@@ -13,9 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private InputStream input;
     private File file;
     private ExpandableListView habitListView;
+    private BufferedReader bufferedReader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +72,20 @@ public class MainActivity extends AppCompatActivity {
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
-                messageBox("readFile", e.getMessage());
+                messageBox("create file", e.getMessage());
             }
         }
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            bufferedReader = new BufferedReader(inputStreamReader);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            messageBox("read file", e.getMessage());
+        }
+
+        return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
