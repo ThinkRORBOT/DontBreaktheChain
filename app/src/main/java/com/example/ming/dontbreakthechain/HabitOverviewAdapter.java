@@ -4,7 +4,11 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class HabitOverviewAdapter extends BaseAdapter {
     String [] name;
@@ -12,15 +16,16 @@ public class HabitOverviewAdapter extends BaseAdapter {
     Context context;
     Integer [] progress_c;
     Integer [] progress_goal;
-    float [] price;
     private static LayoutInflater inflater=null;
     //Constructors to initialise data depending on the activity that called it
-    public HabitOverviewAdapter(MainActivity mainActivity, String[] name, String[] overview, Integer[] progress_c, Integer[] progress_goal) {
+    public HabitOverviewAdapter(MainActivity mainActivity, String[] name_i, String[] overview_i, Integer[] progress_c_i, Integer[] progress_goal_i) {
 
-        result=products;
-        context= essentialProductsActivity;
-        price = price_arr;
-        imageId=productImages;
+        name=name_i;
+        context= mainActivity;
+        progress_c = progress_c_i;
+        overview=overview_i;
+        progress_goal=progress_goal_i;
+
         inflater = ( LayoutInflater )context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -45,8 +50,10 @@ public class HabitOverviewAdapter extends BaseAdapter {
 
     public class Holder
     {
-        TextView tv;
-        TextView price;
+        TextView name;
+        TextView overview;
+        TextView progress;
+        TextView progress_g;
         ImageView img;
     }
     @Override
@@ -55,12 +62,14 @@ public class HabitOverviewAdapter extends BaseAdapter {
         //new holder object
         Holder holder=new Holder();
         View rowView;
-        rowView = inflater.inflate(R.layout.products_list, null);
+        rowView = inflater.inflate(R.layout.activity_habit_overview_adapter, null);
         //sets the attributes of holder to values in array
-        holder.tv=(TextView) rowView.findViewById(R.id.productTitle);
-        holder.img=(ImageView) rowView.findViewById(R.id.productImage);
-        holder.price=(TextView) rowView.findViewById(R.id.productPrice);
-        holder.tv.setText(result[position]);
+        holder.name=(TextView) rowView.findViewById(R.id.habitName);
+        holder.img=(ImageView) rowView.findViewById(R.id.habitImg);
+        holder.overview=(TextView) rowView.findViewById(R.id.habitOverView);
+        holder.progress=(TextView) rowView.findViewById(R.id.habitProgress);
+        holder.progress_g=(TextView) rowView.findViewById(R.id.habitProgressGoal);
+        holder.name.setText(name[position]);
         holder.img.setImageResource(imageId[position]);
         //for when the price is implemented
         //holder.price.setText(String.valueOf(price[position]));

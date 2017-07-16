@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,14 +22,23 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private String filename = "userData";
     private InputStream input;
     private File file;
-    private ExpandableListView habitListView;
+    private ListView habitListView;
     private BufferedReader bufferedReader;
+    private String name_arr[];
+    private String description_arr[];
+    private Integer progress_arr[];
+    private Integer progress_goal[];
+    private ArrayList<String> habitStoreName = new ArrayList<>();
+    private ArrayList<String> habitStoreProgress = new ArrayList<>();
+    private ArrayList<String> habitStoreProgressGoal = new ArrayList<>();
+    private ArrayList<String> habitStoreDescription = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         readFile();
-
+        loadContents();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean readFile(){
+    private void readFile(){
         File dir = new File(getFilesDir()+"/dontbreakthechain");
 
         if(!dir.exists()) {
@@ -85,7 +96,41 @@ public class MainActivity extends AppCompatActivity {
             messageBox("read file", e.getMessage());
         }
 
-        return true;
+    }
+
+    private void loadContents() {
+        String temp = "";
+
+        try {
+            temp = bufferedReader.readLine();
+        } catch (IOException e){
+            e.printStackTrace();
+            messageBox("read line", e.getMessage());
+        }
+        while (temp != null) {
+            String tempArr[] = temp.split("<|>");
+            habitStoreName.add(tempArr[0]);
+            habitStoreDescription.add(tempArr[1]);
+            habitStoreProgress.add(tempArr[2]);
+            habitStoreProgressGoal.add(tempArr[3]);
+
+            try {
+                temp = bufferedReader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        name_arr = habitStoreName.toArray(new String[0]);
+        description_arr = habitStoreDescription.toArray(new String[0]);
+        progress_arr = habitStoreProgress.toArray(new Integer[0]);
+        progress_goal = habitStoreProgressGoal.toArray(new Integer[0]);
+
+        habitListView = (ListView) findViewById(R.id.habitsListView);
+        habitListView.setAdapter(new HabitOverviewAdapter(this, name_arr, description_arr, progress_arr, progress_goal));
+
+        habitListView.setOnItemClickListener();
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
