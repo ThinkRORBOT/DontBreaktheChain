@@ -46,4 +46,46 @@
         android:layout_alignBottom="@+id/habitNameTextView"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Description"
+        android:ems="10"
+        android:layout_below="@+id/habitNameEditText"
+        android:layout_alignStart="@+id/habitNameEditText"
+        android:id="@+id/descriptionEditText" />
+
+    <TextView
+        android:text="Desciption: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/descriptionTextView"
+        android:textSize="18sp"
+        android:textColor="@android:color/background_dark"
+        android:layout_alignBaseline="@+id/descriptionEditText"
+        android:layout_alignBottom="@+id/descriptionEditText"
+        android:layout_alignEnd="@+id/habitNameTextView" />
+
+    <TextView
+        android:text="End Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endDateTextView"
+        android:textSize="18sp"
+        android:textColor="@android:color/background_dark"
+        android:layout_below="@+id/descriptionEditText"
+        android:layout_alignEnd="@+id/descriptionTextView"
+        android:layout_marginTop="15dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_alignTop="@+id/endDateTextView"
+        android:layout_alignStart="@+id/descriptionEditText"
+        android:id="@+id/dateEditText" />
+
 </RelativeLayout>

@@ -16,16 +16,17 @@ public class HabitOverviewAdapter extends BaseAdapter {
     Context context;
     Integer [] progress_c;
     Integer [] progress_goal;
+    int [] habitImage;
     private static LayoutInflater inflater=null;
     //Constructors to initialise data depending on the activity that called it
-    public HabitOverviewAdapter(MainActivity mainActivity, String[] name_i, String[] overview_i, Integer[] progress_c_i, Integer[] progress_goal_i) {
+    public HabitOverviewAdapter(MainActivity mainActivity, String[] name_i, String[] overview_i, Integer[] progress_c_i, Integer[] progress_goal_i, int[] habit_image) {
 
         name=name_i;
         context= mainActivity;
         progress_c = progress_c_i;
         overview=overview_i;
         progress_goal=progress_goal_i;
-
+        habitImage=habit_image;
         inflater = ( LayoutInflater )context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -70,7 +71,7 @@ public class HabitOverviewAdapter extends BaseAdapter {
         holder.progress=(TextView) rowView.findViewById(R.id.habitProgress);
         holder.progress_g=(TextView) rowView.findViewById(R.id.habitProgressGoal);
         holder.name.setText(name[position]);
-        holder.img.setImageResource(imageId[position]);
+        holder.img.setImageResource(habitImage[position]);
         //for when the price is implemented
         //holder.price.setText(String.valueOf(price[position]));
 

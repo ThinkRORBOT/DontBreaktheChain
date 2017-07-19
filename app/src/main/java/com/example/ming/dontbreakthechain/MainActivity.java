@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 
@@ -31,14 +32,18 @@ public class MainActivity extends AppCompatActivity {
     private File file;
     private ListView habitListView;
     private BufferedReader bufferedReader;
-    private String name_arr[];
-    private String description_arr[];
-    private Integer progress_arr[];
-    private Integer progress_goal[];
+    private String[] name_arr;
+    private String[] description_arr;
+    private Integer[] progress_arr;
+    private Integer[] progress_goal;
+    private float[] progress_percentage;
+    private int[] chainImage;
     private ArrayList<String> habitStoreName = new ArrayList<>();
     private ArrayList<String> habitStoreProgress = new ArrayList<>();
     private ArrayList<String> habitStoreProgressGoal = new ArrayList<>();
     private ArrayList<String> habitStoreDescription = new ArrayList<>();
+    private ArrayList<Integer> habitImage = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,11 +130,38 @@ public class MainActivity extends AppCompatActivity {
         description_arr = habitStoreDescription.toArray(new String[0]);
         progress_arr = habitStoreProgress.toArray(new Integer[0]);
         progress_goal = habitStoreProgressGoal.toArray(new Integer[0]);
+        chainImage = new int[name_arr.length];
+
+        for (int i = 0; i < progress_arr.length; i++) {
+            progress_percentage[i] = ((float) progress_arr[i]/progress_goal[i])*100;
+            if (progress_percentage[i] <= 0.167) {
+                chainImage[i] = R.drawable.link1;
+            } else if (progress_percentage[i] <= 0.333) {
+                chainImage[i] = R.drawable.link2;
+            } else if (progress_percentage[i] <= 0.5) {
+                chainImage[i] = R.drawable.link3;
+            } else if (progress_percentage[i] <= 0.667) {
+                chainImage[i] = R.drawable.link4;
+            } else if (progress_percentage[i] <= 0.833) {
+                chainImage[i] = R.drawable.link5;
+            } else {
+                chainImage[i] = R.drawable.link6;
+            }
+        }
 
         habitListView = (ListView) findViewById(R.id.habitsListView);
         habitListView.setAdapter(new HabitOverviewAdapter(this, name_arr, description_arr, progress_arr, progress_goal));
 
-        habitListView.setOnItemClickListener();
+        habitListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent habitIntent = new Intent(getApplicationContext(), MoreInformationActivity.class);
+                String s = Integer.toString(position + 1);
+                habitIntent.putExtra("habit", s);
+                startActivity(habitIntent);
+
+            }
+        });
 
     }
     @Override
