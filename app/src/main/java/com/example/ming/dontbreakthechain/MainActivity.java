@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
     private File file;
     private ListView habitListView;
     private BufferedReader bufferedReader;
-    private String[] name_arr;
+    public static String[] name_arr;
     private String[] description_arr;
-    private Integer[] progress_arr;
-    private Integer[] progress_goal;
+    public static Integer[] progress_arr;
+    public static Integer[] progress_goal;
     private float[] progress_percentage;
-    private int[] chainImage;
+    public static int[] chainImage;
     private ArrayList<String> habitStoreName = new ArrayList<>();
     private ArrayList<String> habitStoreProgress = new ArrayList<>();
     private ArrayList<String> habitStoreProgressGoal = new ArrayList<>();
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         habitListView = (ListView) findViewById(R.id.habitsListView);
-        habitListView.setAdapter(new HabitOverviewAdapter(this, name_arr, description_arr, progress_arr, progress_goal));
+        habitListView.setAdapter(new HabitOverviewAdapter(this, name_arr, description_arr, progress_arr, progress_goal, chainImage));
 
         habitListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

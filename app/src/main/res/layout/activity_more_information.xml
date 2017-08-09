@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app=""
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_more_information"
     android:layout_width="match_parent"
@@ -9,5 +10,113 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.ming.dontbreakthechain.MoreInformationActivity">
+
+
+    <Button
+        android:text="Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp"
+        android:id="@+id/deleteButton"
+        android:background="@android:color/holo_red_dark" />
+
+    <Button
+        android:text="Ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/okButton" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/titleText"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:id="@+id/descriptionView"
+        android:textSize="18sp"
+        android:textColor="@android:color/background_dark" />
+
+    <TextView
+        android:text="Progress so far"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionView"
+        android:layout_alignEnd="@+id/deleteButton"
+        android:layout_marginTop="31dp"
+        android:id="@+id/startDLabel" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/startDLabel"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progressView" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/progressView"
+        android:layout_alignStart="@+id/okButton"
+        android:id="@+id/percentageView" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_below="@+id/progressView"
+        android:layout_alignStart="@+id/progressView"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:text="Change Progress Goal: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/changePLabel"
+        android:layout_alignTop="@+id/editText"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Add One"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressButton"
+        style="@android:style/Widget.Holo.Light.Button"
+        android:background="@android:color/holo_green_light"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/updateButton"
+        android:layout_alignEnd="@+id/titleText"
+        android:layout_alignStart="@+id/descriptionView" />
+
+    <Button
+        android:text="update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/updateButton"
+        android:textSize="10sp"
+        android:elevation="0dp"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentEnd="true"
+        android:minHeight="30dp"
+        android:minWidth="44dip" />
 
 </RelativeLayout>

@@ -34,7 +34,7 @@ public class HabitOverviewAdapter extends BaseAdapter {
 
     public int getCount() {
         // TODO Auto-generated method stub
-        return result.length;
+        return name.length;
     }
 
     @Override
@@ -72,8 +72,6 @@ public class HabitOverviewAdapter extends BaseAdapter {
         holder.progress_g=(TextView) rowView.findViewById(R.id.habitProgressGoal);
         holder.name.setText(name[position]);
         holder.img.setImageResource(habitImage[position]);
-        //for when the price is implemented
-        //holder.price.setText(String.valueOf(price[position]));
 
         return rowView;
     }
