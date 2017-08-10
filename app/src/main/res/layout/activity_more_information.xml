@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app=""
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_more_information"
     android:layout_width="match_parent"
@@ -20,7 +19,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="21dp"
         android:id="@+id/deleteButton"
-        android:background="@android:color/holo_red_dark" />
+        android:background="@android:color/holo_red_dark"
+        android:onClick="deleteHabit"/>
 
     <Button
         android:text="Ok"
@@ -28,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/okButton" />
+        android:id="@+id/okButton"
+        android:onClick="exitActivity"/>
 
     <TextView
         android:text="TextView"
@@ -81,7 +82,7 @@
         android:layout_height="wrap_content"
         android:inputType="numberPassword"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/progressEditText"
         android:layout_below="@+id/progressView"
         android:layout_alignStart="@+id/progressView"
         android:layout_marginStart="11dp"
@@ -92,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/changePLabel"
-        android:layout_alignTop="@+id/editText"
+        android:layout_alignTop="@+id/progressEditText"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -105,7 +106,8 @@
         android:textColor="@android:color/white"
         android:layout_below="@+id/updateButton"
         android:layout_alignEnd="@+id/titleText"
-        android:layout_alignStart="@+id/descriptionView" />
+        android:layout_alignStart="@+id/descriptionView"
+        android:onClick="addProgress"/>
 
     <Button
         android:text="update"
@@ -114,9 +116,18 @@
         android:id="@+id/updateButton"
         android:textSize="10sp"
         android:elevation="0dp"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/progressEditText"
         android:layout_alignParentEnd="true"
         android:minHeight="30dp"
-        android:minWidth="44dip" />
+        android:minWidth="44dp"
+        android:onClick="addHabit"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/progressButton"
+        android:layout_marginTop="80px"
+        android:id="@+id/progressImage"/>
 
 </RelativeLayout>

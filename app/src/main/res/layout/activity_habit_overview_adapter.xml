@@ -24,11 +24,12 @@
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="154dp"
             android:layout_height="41dp"
             android:id="@+id/habitOverView"
             android:text="overview"
-            android:layout_weight="1" />
+            android:minWidth="154dp"
+            android:maxWidth="154dp" />
 
         <TextView
             android:layout_width="wrap_content"

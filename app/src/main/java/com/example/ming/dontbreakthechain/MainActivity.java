@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView habitListView;
     private BufferedReader bufferedReader;
     public static String[] name_arr;
-    private String[] description_arr;
+    public static String[] description_arr;
     public static Integer[] progress_arr;
     public static Integer[] progress_goal;
     private float[] progress_percentage;
@@ -156,9 +156,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent habitIntent = new Intent(getApplicationContext(), MoreInformationActivity.class);
-                String s = Integer.toString(position + 1);
+                String s = Integer.toString(position);
                 habitIntent.putExtra("habit", s);
-                startActivity(habitIntent);
+                startActivityForResult(habitIntent, 1);
 
             }
         });

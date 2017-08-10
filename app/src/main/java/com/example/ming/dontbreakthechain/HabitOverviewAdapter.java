@@ -22,7 +22,7 @@ public class HabitOverviewAdapter extends BaseAdapter {
     public HabitOverviewAdapter(MainActivity mainActivity, String[] name_i, String[] overview_i, Integer[] progress_c_i, Integer[] progress_goal_i, int[] habit_image) {
 
         name=name_i;
-        context= mainActivity;
+        context = mainActivity;
         progress_c = progress_c_i;
         overview=overview_i;
         progress_goal=progress_goal_i;
