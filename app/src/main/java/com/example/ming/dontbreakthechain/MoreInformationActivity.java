@@ -1,6 +1,7 @@
 package com.example.ming.dontbreakthechain;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.icu.text.DecimalFormat;
 import android.preference.DialogPreference;
@@ -14,6 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+import static android.app.Activity.RESULT_OK;
 
 public class MoreInformationActivity extends AppCompatActivity {
 
@@ -31,6 +44,7 @@ public class MoreInformationActivity extends AppCompatActivity {
     private ImageView progressImage;
     private String item;
     private boolean enteredText = false;
+    private int s_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +52,7 @@ public class MoreInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_more_information);
 
         item = getIntent().getStringExtra("habit");
-        int s_item = Integer.valueOf(item);
+        s_item = Integer.valueOf(item);
 
         titleText = (TextView) findViewById(R.id.titleText);
         descriptionText = (TextView) findViewById(R.id.descriptionView);
@@ -62,8 +76,40 @@ public class MoreInformationActivity extends AppCompatActivity {
 
     }
 
+    private void deleteLine(File file, int lineIndex) throws IOException {
+        List<String> lines = new LinkedList<>();
+        Scanner reader = new Scanner(new FileInputStream(file), "UTF-8");
+        while(reader.hasNextLine())
+            lines.add(reader.nextLine());
+
+        reader.close();
+
+        assert lineIndex >= 0 && lineIndex <= lines.size() - 1 : "Line index out of range";
+        lines.remove(lineIndex);
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+        for (final String line : lines) {
+           writer.write(line);
+        }
+
+        writer.flush();
+        writer.close();
+    }
+
+    private void appendLine(File file, int lineIndex) throws IOException {
+        BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
+        output.append( MainActivity.name_arr[s_item] + "<|>" + MainActivity.description_arr[s_item] + "<|>" +
+        MainActivity.progress_arr[s_item] + "<|>" + MainActivity.progress_goal[s_item] + "/n");
+    }
+
 
     public void deleteHabit(View view) {
+        File dir = new File(getFilesDir()+"/dontbreakthechain");
+        File file = new File(dir.getAbsolutePath() + "/habits.txt");
+        try {
+            deleteLine(file, s_item);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void exitActivity(View view) {
@@ -85,7 +131,6 @@ public class MoreInformationActivity extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            saveProgress();
                             setResult(RESULT_OK, null);
                             finish();
                         }
@@ -94,13 +139,19 @@ public class MoreInformationActivity extends AppCompatActivity {
     }
 
     public void addProgress(View view) {
+        MainActivity.progress_arr[s_item] = MainActivity.progress_arr[s_item] + 1;
+
+        File dir = new File(getFilesDir()+"/dontbreakthechain");
+        File file = new File(dir.getAbsolutePath() + "/habits.txt");
+        try {
+            deleteLine(file, s_item);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    private void saveProgress() {
-
-    }
-
-    public void addHabit(View view) {
+    public void updateHabit(View view) {
         if (progressEdit.getText().toString().trim().length() > 0) {
 
         } else {
