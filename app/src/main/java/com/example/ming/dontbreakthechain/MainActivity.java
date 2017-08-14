@@ -164,6 +164,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            Intent refresh = new Intent(this, MainActivity.class);
+            startActivity(refresh);
+            this.finish();
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

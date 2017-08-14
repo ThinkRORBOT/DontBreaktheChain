@@ -45,6 +45,7 @@ public class MoreInformationActivity extends AppCompatActivity {
     private String item;
     private boolean enteredText = false;
     private int s_item;
+    private int num_added; //TODO, some logic about adding a max number of progress per day
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,11 @@ public class MoreInformationActivity extends AppCompatActivity {
         MainActivity.progress_arr[s_item] + "<|>" + MainActivity.progress_goal[s_item] + "/n");
     }
 
+    private void changeLine(File file, int lineIndex, int endDate) throws IOException {
+        BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
+        output.append( MainActivity.name_arr[s_item] + "<|>" + MainActivity.description_arr[s_item] + "<|>" +
+                MainActivity.progress_arr[s_item] + "<|>" + endDate + "/n");
+    }
 
     public void deleteHabit(View view) {
         File dir = new File(getFilesDir()+"/dontbreakthechain");
@@ -143,6 +149,12 @@ public class MoreInformationActivity extends AppCompatActivity {
 
         File dir = new File(getFilesDir()+"/dontbreakthechain");
         File file = new File(dir.getAbsolutePath() + "/habits.txt");
+
+        try {
+            appendLine(file, s_item);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try {
             deleteLine(file, s_item);
         } catch (IOException e) {
@@ -153,7 +165,19 @@ public class MoreInformationActivity extends AppCompatActivity {
 
     public void updateHabit(View view) {
         if (progressEdit.getText().toString().trim().length() > 0) {
+            File dir = new File(getFilesDir()+"/dontbreakthechain");
+            File file = new File(dir.getAbsolutePath() + "/habits.txt");
 
+            try {
+                changeLine(file, s_item, Integer.valueOf(progressEdit.getText().toString()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                deleteLine(file, s_item);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             Toast.makeText(this, "Enter new date", Toast.LENGTH_SHORT).show();
         }
