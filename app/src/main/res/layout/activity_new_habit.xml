@@ -69,10 +69,10 @@
         android:layout_alignEnd="@+id/habitNameTextView" />
 
     <TextView
-        android:text="End Date"
+        android:text="Goal: "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/endDateTextView"
+        android:id="@+id/goalTextView"
         android:textSize="18sp"
         android:textColor="@android:color/background_dark"
         android:layout_below="@+id/descriptionEditText"
@@ -84,8 +84,18 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:layout_alignTop="@+id/endDateTextView"
+        android:layout_alignTop="@+id/goalTextView"
         android:layout_alignStart="@+id/descriptionEditText"
         android:id="@+id/dateEditText" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="31dp"
+        android:id="@+id/saveButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/dateEditText"
+        android:onClick="newHabit"/>
 
 </RelativeLayout>
