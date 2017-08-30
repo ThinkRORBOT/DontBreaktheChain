@@ -100,12 +100,14 @@ public class MoreInformationActivity extends AppCompatActivity {
         BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
         output.append( MainActivity.name_arr[s_item] + "<|>" + MainActivity.description_arr[s_item] + "<|>" +
         MainActivity.progress_arr[s_item] + "<|>" + MainActivity.progress_goal[s_item] + "/n");
+        output.close();
     }
 
     private void changeLine(File file, int lineIndex, int endDate) throws IOException {
         BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
         output.append( MainActivity.name_arr[s_item] + "<|>" + MainActivity.description_arr[s_item] + "<|>" +
                 MainActivity.progress_arr[s_item] + "<|>" + endDate + "/n");
+        output.close();
     }
 
     public void deleteHabit(View view) {

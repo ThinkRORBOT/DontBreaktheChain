@@ -2,11 +2,19 @@ package com.example.ming.dontbreakthechain;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class NewHabitActivity extends AppCompatActivity {
 
@@ -52,6 +60,30 @@ public class NewHabitActivity extends AppCompatActivity {
 
     public void newHabit(View view) {
         if (fieldNotEmpty()) {
+            File dir = new File(getFilesDir()+"/dontbreakthechain");
+
+            if(!dir.exists()) {
+                dir.mkdir();
+                Log.d("directory", "made");
+            }
+
+            File file = new File(dir.getAbsolutePath() + "/habits.txt");
+
+            if(!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            try {
+                BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
+                output.append(habitNameEditText.getText().toString().trim().length() <= 0 // TODO: get other data);
+                output.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
 
