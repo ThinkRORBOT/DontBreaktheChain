@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     public static int[] chainImage;
     private ArrayList<String> habitStoreName = new ArrayList<>();
     private ArrayList<String> habitStoreProgress = new ArrayList<>();
-    private ArrayList<String> habitStoreProgressGoal = new ArrayList<>();
-    private ArrayList<String> habitStoreDescription = new ArrayList<>();
+    private ArrayList<Integer> habitStoreProgressGoal = new ArrayList<>();
+    private ArrayList<Integer> habitStoreDescription = new ArrayList<>();
     private ArrayList<Integer> habitImage = new ArrayList<>();
 
     @Override
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 Intent intent = new Intent(getApplicationContext(), NewHabitActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -114,10 +115,11 @@ public class MainActivity extends AppCompatActivity {
         }
         while (temp != null) {
             String tempArr[] = temp.split("<|>");
+            Log.d("Print", Arrays.toString(tempArr));
             habitStoreName.add(tempArr[0]);
-            habitStoreDescription.add(tempArr[1]);
+            habitStoreDescription.add(Integer.valueOf(tempArr[1]));
             habitStoreProgress.add(tempArr[2]);
-            habitStoreProgressGoal.add(tempArr[3]);
+            habitStoreProgressGoal.add(Integer.valueOf(tempArr[3]));
 
             try {
                 temp = bufferedReader.readLine();
@@ -148,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 chainImage[i] = R.drawable.link6;
             }
         }
+
 
         habitListView = (ListView) findViewById(R.id.habitsListView);
         habitListView.setAdapter(new HabitOverviewAdapter(this, name_arr, description_arr, progress_arr, progress_goal, chainImage));

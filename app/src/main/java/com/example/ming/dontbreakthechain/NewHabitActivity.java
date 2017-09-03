@@ -1,5 +1,6 @@
 package com.example.ming.dontbreakthechain;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -79,13 +80,17 @@ public class NewHabitActivity extends AppCompatActivity {
 
             try {
                 BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
-                output.append(habitNameEditText.getText().toString().trim().length() <= 0 // TODO: get other data);
+                output.append(habitNameEditText.getText().toString().trim() + "<|>" + descriptionEditText.getText().toString().trim() + "<|>" + '0' + "<|>" + goalEditText.getText().toString().trim() + "/n");
                 output.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
+
+        Intent returnIntent = new Intent();
+        setResult(RESULT_OK, returnIntent);
+        finish();
 
     }
 }

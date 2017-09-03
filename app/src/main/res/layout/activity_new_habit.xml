@@ -39,23 +39,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
         android:id="@+id/habitNameEditText"
         android:layout_alignBaseline="@+id/habitNameTextView"
         android:layout_alignBottom="@+id/habitNameTextView"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp" />
+        android:layout_marginEnd="10dp"
+        android:hint="Name" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Description"
         android:ems="10"
         android:layout_below="@+id/habitNameEditText"
         android:layout_alignStart="@+id/habitNameEditText"
-        android:id="@+id/descriptionEditText" />
+        android:id="@+id/descriptionEditText"
+        android:hint="Description" />
 
     <TextView
         android:text="Desciption: "
@@ -89,7 +89,7 @@
         android:id="@+id/dateEditText" />
 
     <Button
-        android:text="Button"
+        android:text="Confirm Changes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="31dp"
