@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private float[] progress_percentage;
     public static int[] chainImage;
     private ArrayList<String> habitStoreName = new ArrayList<>();
-    private ArrayList<String> habitStoreProgress = new ArrayList<>();
+    private ArrayList<Integer> habitStoreProgress = new ArrayList<>();
     private ArrayList<Integer> habitStoreProgressGoal = new ArrayList<>();
-    private ArrayList<Integer> habitStoreDescription = new ArrayList<>();
+    private ArrayList<String> habitStoreDescription = new ArrayList<>();
     private ArrayList<Integer> habitImage = new ArrayList<>();
 
     @Override
@@ -114,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
             messageBox("read line", e.getMessage());
         }
         while (temp != null) {
-            String tempArr[] = temp.split("<|>");
+            String tempArr[] = temp.split("\\^`");
             Log.d("Print", Arrays.toString(tempArr));
             habitStoreName.add(tempArr[0]);
-            habitStoreDescription.add(Integer.valueOf(tempArr[1]));
-            habitStoreProgress.add(tempArr[2]);
+            habitStoreDescription.add(tempArr[1]);
+            habitStoreProgress.add(Integer.valueOf(tempArr[2]));
             habitStoreProgressGoal.add(Integer.valueOf(tempArr[3]));
 
             try {
