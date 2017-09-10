@@ -69,7 +69,7 @@ public class MoreInformationActivity extends AppCompatActivity {
         progressView.setText(MainActivity.progress_arr[s_item] + "/" + MainActivity.progress_goal[s_item]);
 
         float percentage = ((float) MainActivity.progress_arr[s_item] / (float) MainActivity.progress_goal[s_item]);
-        double d_percentage = Math.round(percentage*100.0)/100.0;
+        double d_percentage = Math.round(percentage*100.0);
 
         percentageView.setText( d_percentage + ("%"));
         progressImage.setImageResource(MainActivity.chainImage[s_item]);
@@ -180,6 +180,9 @@ public class MoreInformationActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            setResult(RESULT_OK);
+            finish();
         } else {
             Toast.makeText(this, "Enter new date", Toast.LENGTH_SHORT).show();
         }

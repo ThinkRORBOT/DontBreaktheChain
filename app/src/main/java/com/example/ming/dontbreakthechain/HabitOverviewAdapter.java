@@ -72,6 +72,9 @@ public class HabitOverviewAdapter extends BaseAdapter {
         holder.progress_g=(TextView) rowView.findViewById(R.id.habitProgressGoal);
         holder.name.setText(name[position]);
         holder.img.setImageResource(habitImage[position]);
+        holder.overview.setText(overview[position]);
+        holder.progress.setText(progress_c[position]);
+        holder.progress_g.setText(progress_goal[position]);
 
         return rowView;
     }

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public static Integer[] progress_arr;
     public static Integer[] progress_goal;
     private float[] progress_percentage;
-    public static int[] chainImage;
+    public static int chainImage[];
     private ArrayList<String> habitStoreName = new ArrayList<>();
     private ArrayList<Integer> habitStoreProgress = new ArrayList<>();
     private ArrayList<Integer> habitStoreProgressGoal = new ArrayList<>();
@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
         }
         while (temp != null) {
             String tempArr[] = temp.split("\\^`");
-            Log.d("Print", Arrays.toString(tempArr));
             habitStoreName.add(tempArr[0]);
             habitStoreDescription.add(tempArr[1]);
             habitStoreProgress.add(Integer.valueOf(tempArr[2]));
@@ -127,24 +126,27 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
+        name_arr = new String[habitStoreName.size()];
         name_arr = habitStoreName.toArray(new String[0]);
+        description_arr = new String[habitStoreDescription.size()];
         description_arr = habitStoreDescription.toArray(new String[0]);
+        progress_arr = new Integer[habitStoreProgress.size()];
         progress_arr = habitStoreProgress.toArray(new Integer[0]);
+        progress_goal = new Integer[habitStoreProgressGoal.size()];
         progress_goal = habitStoreProgressGoal.toArray(new Integer[0]);
-        chainImage = new int[name_arr.length];
-
-        for (int i = 0; i < progress_arr.length; i++) {
-            progress_percentage[i] = ((float) progress_arr[i]/progress_goal[i])*100;
-            if (progress_percentage[i] <= 0.167) {
+        chainImage = new int[habitStoreName.size()];
+        Log.d("here", chainImage.length+"");
+        for (int i = 0; i < chainImage.length; i++) {
+            float progress_percentage = ((float) progress_arr[i]/progress_goal[i])*100;
+            if (progress_percentage <= 0.167) {
                 chainImage[i] = R.drawable.link1;
-            } else if (progress_percentage[i] <= 0.333) {
+            } else if (progress_percentage <= 0.333) {
                 chainImage[i] = R.drawable.link2;
-            } else if (progress_percentage[i] <= 0.5) {
+            } else if (progress_percentage <= 0.5) {
                 chainImage[i] = R.drawable.link3;
-            } else if (progress_percentage[i] <= 0.667) {
+            } else if (progress_percentage <= 0.667) {
                 chainImage[i] = R.drawable.link4;
-            } else if (progress_percentage[i] <= 0.833) {
+            } else if (progress_percentage <= 0.833) {
                 chainImage[i] = R.drawable.link5;
             } else {
                 chainImage[i] = R.drawable.link6;
