@@ -64,6 +64,7 @@ public class MoreInformationActivity extends AppCompatActivity {
         changeProgressLabel = (TextView) findViewById(R.id.changePLabel);
         progressImage = (ImageView) findViewById(R.id.progressImage);
 
+        //initialises values for this screen
         titleText.setText(MainActivity.name_arr[s_item]);
         descriptionText.setText(MainActivity.description_arr[s_item]);
         progressView.setText(MainActivity.progress_arr[s_item] + "/" + MainActivity.progress_goal[s_item]);
@@ -77,16 +78,19 @@ public class MoreInformationActivity extends AppCompatActivity {
 
     }
 
+    //deletes the last line of the file
     private void deleteLine(File file, int lineIndex) throws IOException {
         List<String> lines = new LinkedList<>();
+        //read lines into list
         Scanner reader = new Scanner(new FileInputStream(file), "UTF-8");
         while(reader.hasNextLine())
             lines.add(reader.nextLine());
 
         reader.close();
-
+        //makes sure the number of lines is valid
         assert lineIndex >= 0 && lineIndex <= lines.size() - 1 : "Line index out of range";
         lines.remove(lineIndex);
+        //writes lines back into file
         final BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
         for (final String line : lines) {
            writer.write(line);
@@ -96,6 +100,7 @@ public class MoreInformationActivity extends AppCompatActivity {
         writer.close();
     }
 
+    //adds line to the last line of the file
     private void appendLine(File file, int lineIndex) throws IOException {
         BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
         output.append( MainActivity.name_arr[s_item] + "^`" + MainActivity.description_arr[s_item] + "^`" +
@@ -121,6 +126,7 @@ public class MoreInformationActivity extends AppCompatActivity {
     }
 
     public void exitActivity(View view) {
+        //checks whether the use will want to save the changes if they want to exis activity
         if (progressEdit.getText().toString().trim().length() > 0 && !enteredText) {
 
         } else {

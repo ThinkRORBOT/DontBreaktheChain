@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         readFile();
         loadContents();
-
+        //loads button on the top of the screen, haven't assigned a function to it yet
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void readFile(){
+
+        //following lines will create the files and directories necessary if running for the first time
         File dir = new File(getFilesDir()+"/dontbreakthechain");
 
         if(!dir.exists()) {
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //sets up file for reading
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -114,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             messageBox("read line", e.getMessage());
         }
         while (temp != null) {
+            //splits each line to it's raw components
             String tempArr[] = temp.split("\\^`");
             habitStoreName.add(tempArr[0]);
             habitStoreDescription.add(tempArr[1]);
@@ -126,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        // initialises arrays to pass on to adapter
         name_arr = new String[habitStoreName.size()];
         name_arr = habitStoreName.toArray(new String[0]);
         description_arr = new String[habitStoreDescription.size()];
@@ -135,7 +141,8 @@ public class MainActivity extends AppCompatActivity {
         progress_goal = new Integer[habitStoreProgressGoal.size()];
         progress_goal = habitStoreProgressGoal.toArray(new Integer[0]);
         chainImage = new int[habitStoreName.size()];
-        Log.d("here", chainImage.length+"");
+
+        //assigns the correct image to the progress of each goal
         for (int i = 0; i < chainImage.length; i++) {
             float progress_percentage = ((float) progress_arr[i]/progress_goal[i])*100;
             if (progress_percentage <= 0.167) {
@@ -157,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         habitListView = (ListView) findViewById(R.id.habitsListView);
         habitListView.setAdapter(new HabitOverviewAdapter(this, name_arr, description_arr, progress_arr, progress_goal, chainImage));
 
+        //start new activity once an item is clicked and refresh this activity once it returns
         habitListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -170,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //refreshed the current activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
@@ -193,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //sends user message if there is an exception
     public void messageBox(String method, String message) {
         Log.d("Exception: " + method, message);
 

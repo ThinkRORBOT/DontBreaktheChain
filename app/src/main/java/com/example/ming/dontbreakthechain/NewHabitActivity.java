@@ -43,6 +43,7 @@ public class NewHabitActivity extends AppCompatActivity {
     }
 
     private boolean fieldNotEmpty() {
+        //checks that all the required fields are filled in
         if (habitNameEditText.getText().toString().trim().length() <= 0){
             Toast.makeText(getApplicationContext(), "Name Field is Empty.", Toast.LENGTH_SHORT).show();
             return false;
@@ -69,7 +70,7 @@ public class NewHabitActivity extends AppCompatActivity {
             }
 
             File file = new File(dir.getAbsolutePath() + "/habits.txt");
-
+            //write to file
             if(!file.exists()) {
                 try {
                     file.createNewFile();
