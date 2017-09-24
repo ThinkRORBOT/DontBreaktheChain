@@ -3,6 +3,7 @@ package com.example.ming.dontbreakthechain;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,12 +70,11 @@ public class HabitOverviewAdapter extends BaseAdapter {
         holder.img=(ImageView) rowView.findViewById(R.id.habitImg);
         holder.overview=(TextView) rowView.findViewById(R.id.habitOverView);
         holder.progress=(TextView) rowView.findViewById(R.id.habitProgress);
-        holder.progress_g=(TextView) rowView.findViewById(R.id.habitProgressGoal);
         holder.name.setText(name[position]);
         holder.img.setImageResource(habitImage[position]);
         holder.overview.setText(overview[position]);
-        holder.progress.setText(progress_c[position]);
-        holder.progress_g.setText(progress_goal[position]);
+        holder.progress.setText(String.valueOf(progress_c[position]) + "/" + String.valueOf(progress_goal[position]));
+        Log.d("data", String.valueOf(progress_c[position]));
 
         return rowView;
     }

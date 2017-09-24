@@ -44,6 +44,7 @@ public class MoreInformationActivity extends AppCompatActivity {
     private ImageView progressImage;
     private String item;
     private boolean enteredText = false;
+    private boolean progressAdded=false;
     private int s_item;
     private int num_added; //TODO, some logic about adding a max number of progress per day
 
@@ -127,8 +128,9 @@ public class MoreInformationActivity extends AppCompatActivity {
 
     public void exitActivity(View view) {
         //checks whether the use will want to save the changes if they want to exis activity
-        if (progressEdit.getText().toString().trim().length() > 0 && !enteredText) {
-
+        if (progressEdit.getText().toString().trim().length() == 0 && !enteredText) {
+            finish();
+            setResult(RESULT_OK, null);
         } else {
             AlertDialog alertDialog = new AlertDialog.Builder(MoreInformationActivity.this).create();
             alertDialog.setTitle("Unsaved Changes");
@@ -168,11 +170,16 @@ public class MoreInformationActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        progressView.setText(String.valueOf(MainActivity.progress_arr[s_item]));
+        progressAdded=true;
+        float percentage = ((float) MainActivity.progress_arr[s_item] / (float) MainActivity.progress_goal[s_item]);
+        double d_percentage = Math.round(percentage*100.0);
 
+        percentageView.setText( d_percentage + ("%"));
     }
 
     public void updateHabit(View view) {
-        if (progressEdit.getText().toString().trim().length() > 0) {
+        if ((progressEdit.getText().toString().trim().length() > 0) || progressAdded) {
             File dir = new File(getFilesDir()+"/dontbreakthechain");
             File file = new File(dir.getAbsolutePath() + "/habits.txt");
 
@@ -190,7 +197,7 @@ public class MoreInformationActivity extends AppCompatActivity {
             setResult(RESULT_OK);
             finish();
         } else {
-            Toast.makeText(this, "Enter new date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Make a change", Toast.LENGTH_SHORT).show();
         }
     }
 }

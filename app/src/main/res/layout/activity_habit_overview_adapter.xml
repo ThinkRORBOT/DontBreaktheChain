@@ -6,7 +6,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="72dp"
         android:id="@+id/habitImg"
         android:src="@mipmap/ic_launcher" />
 
@@ -29,20 +29,18 @@
             android:id="@+id/habitOverView"
             android:text="overview"
             android:minWidth="154dp"
-            android:maxWidth="154dp" />
+            android:maxWidth="154dp"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/habitProgress"
             android:text="progress"
-            android:layout_weight="24" />
+            android:layout_weight="24"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/background_dark" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/habitProgressGoal"
-            android:text="progress goal"/>
     </LinearLayout>
 
     <LinearLayout
