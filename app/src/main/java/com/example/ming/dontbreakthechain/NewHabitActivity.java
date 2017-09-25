@@ -81,7 +81,7 @@ public class NewHabitActivity extends AppCompatActivity {
 
             try {
                 BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
-                output.append(habitNameEditText.getText().toString().trim() + "^`" + descriptionEditText.getText().toString().trim() + "^`" + '0' + "^`" + goalEditText.getText().toString().trim() + "\n");
+                output.append(habitNameEditText.getText().toString().trim() + "^`" + descriptionEditText.getText().toString().trim() + "^`" + '0' + "^`" + goalEditText.getText().toString().trim() + "^`" + "\n");
                 output.close();
             } catch (IOException e) {
                 e.printStackTrace();

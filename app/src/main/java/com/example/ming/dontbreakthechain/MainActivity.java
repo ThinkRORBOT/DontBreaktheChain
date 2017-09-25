@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
+            Log.d("Activity", "restart");
             Intent refresh = new Intent(this, MainActivity.class);
             startActivity(refresh);
             this.finish();

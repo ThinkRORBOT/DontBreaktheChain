@@ -7,6 +7,7 @@ import android.icu.text.DecimalFormat;
 import android.preference.DialogPreference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +56,7 @@ public class MoreInformationActivity extends AppCompatActivity {
 
         item = getIntent().getStringExtra("habit");
         s_item = Integer.valueOf(item);
+        Log.d("test", s_item+"");
 
         titleText = (TextView) findViewById(R.id.titleText);
         descriptionText = (TextView) findViewById(R.id.descriptionView);
@@ -87,9 +89,10 @@ public class MoreInformationActivity extends AppCompatActivity {
         while(reader.hasNextLine())
             lines.add(reader.nextLine());
 
+
         reader.close();
         //makes sure the number of lines is valid
-        assert lineIndex >= 0 && lineIndex <= lines.size() - 1 : "Line index out of range";
+        //assert lineIndex >= 0 && lineIndex <= lines.size() - 1 : "Line index out of range";
         lines.remove(lineIndex);
         //writes lines back into file
         final BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
@@ -99,19 +102,23 @@ public class MoreInformationActivity extends AppCompatActivity {
 
         writer.flush();
         writer.close();
+
+        setResult(RESULT_OK, null);
+        finish();
+
     }
 
     //adds line to the last line of the file
     private void appendLine(File file, int lineIndex) throws IOException {
         BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
         output.append( MainActivity.name_arr[s_item] + "^`" + MainActivity.description_arr[s_item] + "^`" +
-        MainActivity.progress_arr[s_item] + "^`" + MainActivity.progress_goal[s_item] + "/n");
+        MainActivity.progress_arr[s_item] + "^`" + MainActivity.progress_goal[s_item]+ "^`" + "/n");
         output.close();
     }
 
     private void changeLine(File file, int lineIndex, int endDate) throws IOException {
         BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
-        output.append( MainActivity.name_arr[s_item] + "^`" + MainActivity.description_arr[s_item] + "^`" +
+        output.append( MainActivity.name_arr[s_item] + "^`" + MainActivity.description_arr[s_item]+ "^`" + "^`" +
                 MainActivity.progress_arr[s_item] + "^`" + endDate + "/n");
         output.close();
     }
@@ -129,8 +136,9 @@ public class MoreInformationActivity extends AppCompatActivity {
     public void exitActivity(View view) {
         //checks whether the use will want to save the changes if they want to exis activity
         if (progressEdit.getText().toString().trim().length() == 0 && !enteredText) {
-            finish();
             setResult(RESULT_OK, null);
+            finish();
+
         } else {
             AlertDialog alertDialog = new AlertDialog.Builder(MoreInformationActivity.this).create();
             alertDialog.setTitle("Unsaved Changes");
@@ -139,8 +147,9 @@ public class MoreInformationActivity extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
                             setResult(RESULT_OK, null);
+                            finish();
+
                         }
                     });
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
@@ -166,7 +175,7 @@ public class MoreInformationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         try {
-            deleteLine(file, s_item);
+            deleteLine(file, MainActivity.name_arr.length - 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
