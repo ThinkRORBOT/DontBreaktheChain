@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(!dir.exists()) {
             dir.mkdir();
-            Log.d("directory", "made");
         }
 
         file = new File(dir.getAbsolutePath() + "/habits.txt");
@@ -112,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             temp = bufferedReader.readLine();
+            Log.d("d", temp + "");
         } catch (IOException e){
             e.printStackTrace();
             messageBox("read line", e.getMessage());

@@ -20,6 +20,7 @@ import org.w3c.dom.Text;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -56,7 +57,6 @@ public class MoreInformationActivity extends AppCompatActivity {
 
         item = getIntent().getStringExtra("habit");
         s_item = Integer.valueOf(item);
-        Log.d("test", s_item+"");
 
         titleText = (TextView) findViewById(R.id.titleText);
         descriptionText = (TextView) findViewById(R.id.descriptionView);
@@ -110,17 +110,19 @@ public class MoreInformationActivity extends AppCompatActivity {
 
     //adds line to the last line of the file
     private void appendLine(File file, int lineIndex) throws IOException {
-        BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
-        output.append( MainActivity.name_arr[s_item] + "^`" + MainActivity.description_arr[s_item] + "^`" +
-        MainActivity.progress_arr[s_item] + "^`" + MainActivity.progress_goal[s_item]+ "^`" + "/n");
+        FileOutputStream output = new FileOutputStream(file, true);
+        String outputString=MainActivity.name_arr[lineIndex] + "^`" + MainActivity.description_arr[lineIndex] + "^`" +
+                MainActivity.progress_arr[lineIndex] + "^`" + MainActivity.progress_goal[lineIndex]+ "^`" + "/n";
+        output.write( outputString.getBytes());
         output.close();
     }
 
     private void changeLine(File file, int lineIndex, int endDate) throws IOException {
         BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
-        output.append( MainActivity.name_arr[s_item] + "^`" + MainActivity.description_arr[s_item]+ "^`" + "^`" +
-                MainActivity.progress_arr[s_item] + "^`" + endDate + "/n");
+        output.write( MainActivity.name_arr[lineIndex] + "^`" + MainActivity.description_arr[lineIndex]+ "^`" +
+                MainActivity.progress_arr[lineIndex] + "^`" + endDate + "^'" + "/n");
         output.close();
+        //Todo: Change all outputs to file output stream
     }
 
     public void deleteHabit(View view) {
@@ -175,7 +177,7 @@ public class MoreInformationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         try {
-            deleteLine(file, MainActivity.name_arr.length - 1);
+            deleteLine(file, s_item);
         } catch (IOException e) {
             e.printStackTrace();
         }
