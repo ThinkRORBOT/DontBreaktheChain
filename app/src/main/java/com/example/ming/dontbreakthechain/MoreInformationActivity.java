@@ -89,14 +89,13 @@ public class MoreInformationActivity extends AppCompatActivity {
         while(reader.hasNextLine())
             lines.add(reader.nextLine());
 
-
         reader.close();
         //makes sure the number of lines is valid
         //assert lineIndex >= 0 && lineIndex <= lines.size() - 1 : "Line index out of range";
         lines.remove(lineIndex);
         //writes lines back into file
-        final BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
-        for (final String line : lines) {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+        for (String line : lines) {
            writer.write(line);
         }
 
@@ -110,19 +109,18 @@ public class MoreInformationActivity extends AppCompatActivity {
 
     //adds line to the last line of the file
     private void appendLine(File file, int lineIndex) throws IOException {
-        FileOutputStream output = new FileOutputStream(file, true);
-        String outputString=MainActivity.name_arr[lineIndex] + "^`" + MainActivity.description_arr[lineIndex] + "^`" +
-                MainActivity.progress_arr[lineIndex] + "^`" + MainActivity.progress_goal[lineIndex]+ "^`" + "/n";
-        output.write( outputString.getBytes());
+        BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
+        output.write( "\n" + MainActivity.name_arr[lineIndex] + "^`" + MainActivity.description_arr[lineIndex] + "^`" +
+                MainActivity.progress_arr[lineIndex] + "^`" + MainActivity.progress_goal[lineIndex]+ "^`" + "\n");
         output.close();
     }
 
     private void changeLine(File file, int lineIndex, int endDate) throws IOException {
         BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
-        output.write( MainActivity.name_arr[lineIndex] + "^`" + MainActivity.description_arr[lineIndex]+ "^`" +
-                MainActivity.progress_arr[lineIndex] + "^`" + endDate + "^'" + "/n");
+        output.write("\n" +  MainActivity.name_arr[lineIndex] + "^`" + MainActivity.description_arr[lineIndex]+ "^`" +
+                MainActivity.progress_arr[lineIndex] + "^`" + endDate + "^'" + "\n");
         output.close();
-        //Todo: Change all outputs to file output stream
+
     }
 
     public void deleteHabit(View view) {
@@ -166,6 +164,10 @@ public class MoreInformationActivity extends AppCompatActivity {
     }
 
     public void addProgress(View view) {
+        if (MainActivity.progress_arr[s_item] == MainActivity.progress_goal[s_item]) {
+            Toast.makeText(this, "Goal already achieved", Toast.LENGTH_LONG).show();
+            return;
+        }
         MainActivity.progress_arr[s_item] = MainActivity.progress_arr[s_item] + 1;
 
         File dir = new File(getFilesDir()+"/dontbreakthechain");
@@ -190,6 +192,8 @@ public class MoreInformationActivity extends AppCompatActivity {
     }
 
     public void updateHabit(View view) {
+
+
         if ((progressEdit.getText().toString().trim().length() > 0) || progressAdded) {
             File dir = new File(getFilesDir()+"/dontbreakthechain");
             File file = new File(dir.getAbsolutePath() + "/habits.txt");

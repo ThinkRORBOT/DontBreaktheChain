@@ -26,6 +26,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//Todo: Check that chain images are working, check delete habit and change habit are working
+
 public class MainActivity extends AppCompatActivity {
 
     private String filename = "userData";
@@ -111,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             temp = bufferedReader.readLine();
-            Log.d("d", temp + "");
         } catch (IOException e){
             e.printStackTrace();
             messageBox("read line", e.getMessage());
