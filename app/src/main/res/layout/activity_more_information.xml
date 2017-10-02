@@ -80,7 +80,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberPassword"
+        android:inputType="number"
         android:ems="10"
         android:id="@+id/progressEditText"
         android:layout_below="@+id/progressView"

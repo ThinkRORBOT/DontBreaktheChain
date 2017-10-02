@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             messageBox("read line", e.getMessage());
         }
+
         while (temp != null) {
             //splits each line to it's raw components
             String tempArr[] = temp.split("\\^`");
@@ -145,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
 
         //assigns the correct image to the progress of each goal
         for (int i = 0; i < chainImage.length; i++) {
-            float progress_percentage = ((float) progress_arr[i]/progress_goal[i])*100;
+            float progress_percentage = ((float) progress_arr[i]/progress_goal[i]);
+            //Log.d("percentage", String.valueOf(progress_percentage));
             if (progress_percentage <= 0.167) {
                 chainImage[i] = R.drawable.link1;
             } else if (progress_percentage <= 0.333) {

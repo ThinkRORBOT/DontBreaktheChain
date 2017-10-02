@@ -118,7 +118,7 @@ public class MoreInformationActivity extends AppCompatActivity {
     private void changeLine(File file, int lineIndex, int endDate) throws IOException {
         BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
         output.write("\n" +  MainActivity.name_arr[lineIndex] + "^`" + MainActivity.description_arr[lineIndex]+ "^`" +
-                MainActivity.progress_arr[lineIndex] + "^`" + endDate + "^'" + "\n");
+                MainActivity.progress_arr[lineIndex] + "^`" + endDate + "^`" + "\n");
         output.close();
 
     }
